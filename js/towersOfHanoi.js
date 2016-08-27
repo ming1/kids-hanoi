@@ -18,12 +18,18 @@
 		 obj.style.width = width + "px";
 
 		 height = 90 + nr_discs * 18;
+		 b_w = width / 2 - 10;
 		 obj = document.getElementById("bar1");
 		 obj.style.height = height + "px";
+		 obj.style.left = b_w + "px";
+
 		 obj = document.getElementById("bar2");
 		 obj.style.height = height + "px";
+		 obj.style.left = b_w + "px";
+
 		 obj = document.getElementById("bar3");
 		 obj.style.height = height + "px";
+		 obj.style.left = b_w + "px";
 
 	  }
 

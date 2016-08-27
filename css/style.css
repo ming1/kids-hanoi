@@ -53,9 +53,9 @@ h2 {
     width : 20px;
     height: 150px;
     background-color: #787878;
-    margin: 0 94px;
-    position: absolute;
-    bottom : 0px; 
+    margin: 0 0px;
+    position: relative;
+    bottom : -50px;
     z-index: -999999;   
 }
 
