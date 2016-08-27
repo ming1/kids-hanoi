@@ -5,6 +5,11 @@
 
 	  discs = new Array(nr_discs);
 
+      function Disc(elem, tower_no) {
+          this.elem = elem;
+          this.tower_no = tower_no;
+      }
+
       function del_disc(parent) {
           obj = document.getElementById(parent);
           while (obj.firstChild) {
@@ -34,7 +39,7 @@
 			tdiv.style.alignContent = "center";
 		    obj.appendChild(tdiv);
 
-			discs[idx] = tdiv;
+			discs[idx] = new Disc(tdiv, 1)
 
 			curr_width += w_delta;
 		}
