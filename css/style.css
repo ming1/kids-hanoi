@@ -26,6 +26,7 @@ h2 {
   border-radius: 10px;
   position: relative;
   margin: 0 auto;
+  bottom : -140px;
 }
 
 .disk1 {
