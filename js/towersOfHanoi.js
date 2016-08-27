@@ -39,7 +39,7 @@
 			tdiv.style.alignContent = "center";
 		    obj.appendChild(tdiv);
 
-			discs[idx] = new Disc(tdiv, 1)
+			discs[nr_discs - idx - 1] = new Disc(tdiv, 1)
 
 			curr_width += w_delta;
 		}
