@@ -139,18 +139,17 @@ a.active.trigger {
 .panel {
   color: #4ea5cd;
   position: absolute;
-  display: none;
 
-  width: 250px;
-  height: auto;
+  width: 200px;
+  height: 200px;
   z-index:1;
   border: 1px solid;
   border-color: #4ea5cd;
 }
 
 .panel.right {
-  right: 0;
-  padding: 20px 50px 20px 30px;
+  right: 2px;
+  padding: 10px 2px 10px 10px;
   border-bottom-left-radius: 15px;
   border-top-left-radius: 15px;
   -moz-border-radius-bottomleft: 15px;
