@@ -5,6 +5,18 @@
 
 	  discs = new Array(nr_discs);
 
+      function del_disc(parent) {
+	        obj = document.getElementById(parent);
+            while (obj.firstChild) {
+                obj.removeChild(obj.firstChild);
+			}
+	  }
+      function del_discs() {
+            del_disc("content1");
+            del_disc("content2");
+            del_disc("content3");
+	  }
+
       function add_discs() {
         var w_delta = 9;
         var obj;
@@ -69,6 +81,7 @@
 		 obj.style.height = height + "px";
 		 obj.style.left = b_w + "px";
 
+		 del_discs();
 		 add_discs();
 	  }
 
