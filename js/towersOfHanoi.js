@@ -5,15 +5,19 @@
 	     nr_discs = parseInt(document.form1.nr_discs.value);
 		 delay = document.form1.move_delay.value;
 
-		 height = 140 + nr_discs * 20;
+		 height = 140 + nr_discs * 18;
+		 width = 189 + nr_discs * 7
 		 obj = document.getElementById("tower1");
 		 obj.style.height = height + "px";
+		 obj.style.width = width + "px";
 		 obj = document.getElementById("tower2");
 		 obj.style.height = height + "px";
+		 obj.style.width = width + "px";
 		 obj = document.getElementById("tower3");
 		 obj.style.height = height + "px";
+		 obj.style.width = width + "px";
 
-		 height = 90 + nr_discs * 20;
+		 height = 90 + nr_discs * 18;
 		 obj = document.getElementById("bar1");
 		 obj.style.height = height + "px";
 		 obj = document.getElementById("bar2");

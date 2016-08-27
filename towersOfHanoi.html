@@ -15,6 +15,9 @@
       <div class="droppable" id="tower1">
         <div class="bar" id="bar1"></div>
         <div class="content">
+		<div class="draggable disk3" id="disk3"></div>
+		<div class="draggable disk2" id="disk2"></div>
+		<div class="draggable disk1" id="disk1"></div>
         </div>
       </div>
       <div class="droppable" id="tower2">
@@ -28,8 +31,8 @@
   <div>
 
   <form name="form1" id="rightPanel" class="panel right">
-  <p>Discs<input type="TEXT" size="3" value="3" name="nr_discs"></p>
-  <p>Delay<input type="TEXT" size="3" value="1000" name="move_delay">ms</p>
+  <p>Discs<input type="TEXT" size="2" value="3" name="nr_discs"></p>
+  <p>Delay<input type="TEXT" size="2" value="1000" name="move_delay">ms</p>
   <p><input type="BUTTON" class="trigger" value="New Game" onClick="setup_game();"></p>
   <p><input type="BUTTON" class="trigger" value="Auto Play" onClick="auto_play();"></p>
   </form>

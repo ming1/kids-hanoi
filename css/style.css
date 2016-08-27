@@ -22,7 +22,7 @@ h2 {
 }
 
 .draggable {
-  height: 25px;
+  height: 18px;
   border-radius: 10px;
   position: relative;
   margin: 0 auto;
@@ -140,7 +140,7 @@ a.active.trigger {
   color: #4ea5cd;
   position: absolute;
 
-  width: 200px;
+  width: 180px;
   height: 200px;
   z-index:1;
   border: 1px solid;
