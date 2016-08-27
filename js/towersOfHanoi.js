@@ -6,10 +6,10 @@
 	  discs = new Array(nr_discs);
 
       function del_disc(parent) {
-	        obj = document.getElementById(parent);
-            while (obj.firstChild) {
-                obj.removeChild(obj.firstChild);
-			}
+          obj = document.getElementById(parent);
+          while (obj.firstChild) {
+             obj.removeChild(obj.firstChild);
+          }
 	  }
       function del_discs() {
             del_disc("content1");
@@ -40,46 +40,38 @@
 		}
 	  }
 
+      function set_tower(no, w, h) {
+         obj = document.getElementById("tower" + no);
+         obj.style.width = w + "px";
+         obj.style.height = h + "px";
+ 
+         obj = document.getElementById("content" + no);
+         obj.style.width = w + "px";
+         obj.style.height = h + "px";
+	  }
+
+      function set_bar(no, l, h) {
+         obj = document.getElementById("bar" + no);
+         obj.style.left = l + "px";
+         obj.style.height = h + "px";
+	  }
+
 	  function setup_game() {
 	     nr_discs = parseInt(document.form1.nr_discs.value);
 		 delay = document.form1.move_delay.value;
 
 		 tower_h = 140 + nr_discs * disc_h;
 		 tower_w = 189 + nr_discs * 7
-		 obj = document.getElementById("tower1");
-		 obj.style.height = tower_h + "px";
-		 obj.style.width = tower_w + "px";
-		 obj = document.getElementById("content1");
-		 obj.style.height = tower_h + "px";
-		 obj.style.width = tower_w + "px";
+         set_tower(1, tower_w, tower_h)
+         set_tower(2, tower_w, tower_h)
+         set_tower(3, tower_w, tower_h)
 
-		 obj = document.getElementById("tower2");
-		 obj.style.height = tower_h + "px";
-		 obj.style.width = tower_w + "px";
-		 obj = document.getElementById("content2");
-		 obj.style.height = tower_h + "px";
-		 obj.style.width = tower_w + "px";
 
-		 obj = document.getElementById("tower3");
-		 obj.style.height = tower_h + "px";
-		 obj.style.width = tower_w + "px";
-		 obj = document.getElementById("content3");
-		 obj.style.height = tower_h + "px";
-		 obj.style.width = tower_w + "px";
-
-		 height = 90 + nr_discs * disc_h;
-		 b_w = tower_w / 2 - 10;
-		 obj = document.getElementById("bar1");
-		 obj.style.height = height + "px";
-		 obj.style.left = b_w + "px";
-
-		 obj = document.getElementById("bar2");
-		 obj.style.height = height + "px";
-		 obj.style.left = b_w + "px";
-
-		 obj = document.getElementById("bar3");
-		 obj.style.height = height + "px";
-		 obj.style.left = b_w + "px";
+		 bar_h = 90 + nr_discs * disc_h;
+		 bar_l = tower_w / 2 - 10;
+         set_bar(1, bar_l, bar_h)
+         set_bar(2, bar_l, bar_h)
+         set_bar(3, bar_l, bar_h)
 
 		 del_discs();
 		 add_discs();
