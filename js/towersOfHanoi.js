@@ -1,52 +1,38 @@
-      var SELECT_DRAGGABLE = ".draggable";
-      var SELECT_CONTENT = ".content";
-      var ATTR_WIDTH = "width";
-      var ID_LAST_TOWER = "tower3";
-      var NUMBER_OF_DISCS = "3";
+      var nr_discs;
+	  var delay;
 
-      var myMessages = ['info','success'];
+	  function setup_game() {
+	     nr_discs = parseInt(document.form1.nr_discs.value);
+		 delay = document.form1.move_delay.value;
 
-      $(function() {
-        initialize();
-      });
+		 height = 140 + nr_discs * 20;
+		 obj = document.getElementById("tower1");
+		 obj.style.height = height + "px";
+		 obj = document.getElementById("tower2");
+		 obj.style.height = height + "px";
+		 obj = document.getElementById("tower3");
+		 obj.style.height = height + "px";
+
+		 height = 90 + nr_discs * 20;
+		 obj = document.getElementById("bar1");
+		 obj.style.height = height + "px";
+		 obj = document.getElementById("bar2");
+		 obj.style.height = height + "px";
+		 obj = document.getElementById("bar3");
+		 obj.style.height = height + "px";
+
+	  }
 
       function initialize() {
-        $("#effect").hide();
-        hideAllMessages();
-        showHowToPlay();
         initDrag();
         initDrop();
+		setup_game();
       }
 
       function initDrag() {
-        $(SELECT_DRAGGABLE).draggable({
-           revert: "invalid",
-           stack: $(SELECT_DRAGGABLE),
-           helper: "clone",
-           cursor: "move",
-           addClasses: "false",
-           start: function(event, ui) {
-              return isDraggingAllowed($(event.target).parent(), event.target);
-            }
-        });
       }
 
       function initDrop() {
-        $(".droppable").droppable({
-           accept: SELECT_DRAGGABLE,
-           drop: function(event, ui) {
-            var targetTower = $(this).find(SELECT_CONTENT);
-            if (isValidMove(targetTower, ui.draggable)) {
-              $(ui.draggable).prependTo(targetTower);
-            } else {
-              showMessage(myMessages[0]);
-            }
-
-            if (isDone(event.target)) {
-              showMessage(myMessages[1]);
-            }
-           } 
-        });
       }
 
       function isDraggingAllowed(parent, child) {
@@ -62,25 +48,6 @@
         return ((parent.id == ID_LAST_TOWER) && ($(parent).find(SELECT_CONTENT).children().length == NUMBER_OF_DISCS));
       }
 
-      function hideAllMessages() {
-        for (i = 0; i < myMessages.length; i++) {
-          $('.' + myMessages[i]).hide();
-        }
-      }
-
-      function showMessage(type) {
-        var msgElement = $('.' + type);
-        msgElement.show();
-        msgElement.animate({top:"0"}, 2000);
-        msgElement.fadeOut("slow", function () {
-            $("." + type).hide();
-          });
-      }
-
-      function showHowToPlay() {
-        $('.howToPlay').slidePanel({
-          triggerName: '#rightPanel',
-          triggerTopPos: '110px',
-          panelTopPos: '100px'
-        });
-      }
+	  function auto_play() {
+	  
+	  }
