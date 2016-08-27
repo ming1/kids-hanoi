@@ -1,24 +1,28 @@
       var nr_discs;
 	  var delay;
+	  var tower_h, tower_w;
+	  var disc_h = 18;
 
 	  function setup_game() {
 	     nr_discs = parseInt(document.form1.nr_discs.value);
 		 delay = document.form1.move_delay.value;
 
-		 height = 140 + nr_discs * 18;
-		 width = 189 + nr_discs * 7
+		 tower_h = 140 + nr_discs * disc_h;
+		 tower_w = 189 + nr_discs * 7
 		 obj = document.getElementById("tower1");
-		 obj.style.height = height + "px";
-		 obj.style.width = width + "px";
-		 obj = document.getElementById("tower2");
-		 obj.style.height = height + "px";
-		 obj.style.width = width + "px";
-		 obj = document.getElementById("tower3");
-		 obj.style.height = height + "px";
-		 obj.style.width = width + "px";
+		 obj.style.height = tower_h + "px";
+		 obj.style.width = tower_w + "px";
 
-		 height = 90 + nr_discs * 18;
-		 b_w = width / 2 - 10;
+		 obj = document.getElementById("tower2");
+		 obj.style.height = tower_h + "px";
+		 obj.style.width = tower_w + "px";
+
+		 obj = document.getElementById("tower3");
+		 obj.style.height = tower_h + "px";
+		 obj.style.width = tower_w + "px";
+
+		 height = 90 + nr_discs * disc_h;
+		 b_w = tower_w / 2 - 10;
 		 obj = document.getElementById("bar1");
 		 obj.style.height = height + "px";
 		 obj.style.left = b_w + "px";
@@ -30,7 +34,6 @@
 		 obj = document.getElementById("bar3");
 		 obj.style.height = height + "px";
 		 obj.style.left = b_w + "px";
-
 	  }
 
       function initialize() {
