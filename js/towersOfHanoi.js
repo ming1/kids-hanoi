@@ -6,6 +6,9 @@
       var disc_base_bottom;
       var dd_obj = false;
 	  var que = new Queue();
+	  var count = 0;
+	  var start_time;
+	  var status_obj;
 
       discs = new Array(64);
       top_disc = new Array(4);       //one extra
@@ -137,11 +140,14 @@
           tower.onmousedown = disable_drag_drop();
       }
 
-      function del_disc(parent) {
+      function del_children(parent) {
           obj = document.getElementById(parent);
           while (obj.firstChild) {
              obj.removeChild(obj.firstChild);
           }
+	  }
+      function del_disc(parent) {
+			  del_children(parent);
 	  }
       function del_discs() {
             del_disc("content1");
@@ -266,6 +272,22 @@
 			this.to = to;
 	  }
 
+      function auto_play_start() {
+	  		start_time = new Date().getTime();
+			count = 0;
+
+			del_children("info1");
+         	obj = document.getElementById("info1");
+
+			status_obj = document.createTextNode("");
+			obj.appendChild(status_obj);
+	  }
+      function auto_play_update() {
+          elapsed = new Date().getTime();
+		  elapsed -= start_time;
+		  status_obj.nodeValue = "move " + count + " in " + elapsed + "ms";
+	  }
+
 	  function handle_move() {
 		  move_elem = que.dequeue();
 
@@ -276,6 +298,9 @@
 
 		  src_disc = src.firstChild;
 		  handle_drop(src_disc, dst);
+		  count += 1;
+		
+		  auto_play_update();
 
 		  if (que.getLength() > 0) {
 				  setTimeout(handle_move, move_delay);
@@ -295,6 +320,7 @@
 	  }
 
 	  function auto_play() {
+		  auto_play_start();
           hanoi(nr_discs, 1, 2, 3);
 		  if (que.getLength() > 0) {
 				  setTimeout(handle_move, move_delay);
