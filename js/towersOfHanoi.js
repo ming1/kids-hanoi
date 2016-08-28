@@ -2,6 +2,7 @@
       var delay;
       var tower_h, tower_w;
       var disc_h = 18;
+      var dd_obj = false;
 
       discs = new Array(nr_discs);
       top_disc = new Array(3)
@@ -13,10 +14,70 @@
           this.tower_no = tower_no;
       }
 
+      function drag_disc(e) {
+          if (!e) var e = window.event;
+          obj = (e.target) ? e.target: e.srcElement;
+
+		  //alert("drag from " + obj.id);
+          dd_obj = obj;
+      }
+
+      function get_id(src, prefix_len) {
+          return parseInt(src.id.substring(prefix_len, src.length));
+      }
+
+	  function convert_to_tower(dst) {
+          if (dst.id.substring(0, 4) == "disc") {
+               var disc_id = get_id(dst, 4);
+			   var disc = discs[disc_id];
+			   var tower = document.getElementById("content" + disc.tower_no)
+			   return tower;
+		  } else {
+              return dst;
+		  }
+	  }
+
+      function valid_drag_drop(src, dst) {
+		  var disc, disc_id, tower_id;;
+
+		  if (!src || !dst)  return false;
+          if (src.id.substring(0, 4) != "disc") return false; //not drag a disc
+
+          if (src == dst) return false;   //drop to myself
+
+		  dst = convert_to_tower(dst);    //convert to tower
+		  disc_id = get_id(src, 4);
+		  tower_id = get_id(dst, 7);
+		  disc = discs[disc_id];
+
+		  if (tower_id == disc.tower_no) return false; //in same tower
+
+		  if (top_disc[tower_id] == -1) return true; //tower is empty
+
+		  if (top_disc[tower_id] < disc_id)
+				  return false;
+		  else
+				  return true;
+      }
+
+      function drop_to_tower(e) {
+          if (!e) var e = window.event;
+          obj = (e.target) ? e.target: e.srcElement;
+
+		  if (!valid_drag_drop(dd_obj, obj))
+				  return;
+
+		  alert("drop to" + obj.id);
+
+          dd_obj = false;
+      }
+
       function init_drag(disc) {
+          disc.onmousedown = drag_disc;
       }
 
       function init_drop(tower) {
+          tower.onmouseup = drop_to_tower;
       }
 
       function del_disc(parent) {
@@ -47,6 +108,7 @@
 		    tdiv.style.width =  curr_width + "px";
 			tdiv.style.alignContent = "center";
             tdiv.id = "disc" + idx;
+            init_drag(tdiv);
 
 		    obj.appendChild(tdiv);
 
@@ -64,6 +126,7 @@
          obj = document.getElementById("tower" + no);
          obj.style.width = w + "px";
          obj.style.height = h + "px";
+         init_drop(obj)
  
          obj = document.getElementById("content" + no);
          obj.style.width = w + "px";
