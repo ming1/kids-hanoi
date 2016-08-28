@@ -168,6 +168,8 @@
 			//tdiv.style.alignSelf = "center";
 		    tdiv.style.left =  curr_left + "px";
             tdiv.id = "disc" + idx;
+			tdiv.style.textAlign = "center"
+		    tdiv.appendChild(document.createTextNode(idx + 1));
             init_drag(tdiv);
 
 		    obj.appendChild(tdiv);
