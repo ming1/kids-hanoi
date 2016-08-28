@@ -2,6 +2,7 @@
       var delay;
       var tower_h, tower_w;
       var disc_h = 18;
+      var disc_base_bottom;
       var dd_obj = false;
 
       discs = new Array(nr_discs);
@@ -80,6 +81,17 @@
 		  top_disc[id] = disc_id;
 	  }
 
+      function adjust_disc_height(tower, disc) {
+           if (!tower.firstChild) {
+		        disc.style.bottom = disc_base_bottom;
+				return;
+		   }
+
+		  var o_bot = tower.firstChild.style.bottom;
+		  var n_bot = parseInt(o_bot.substring(0, o_bot.length - 2)) + disc_h;
+		  disc.style.bottom = n_bot + 'px';
+	  }
+
       function handle_drop(src, dst) {
 	      var src_tower;
 		  var src_tower_id;
@@ -89,6 +101,7 @@
 		  src_tower_id = disc.tower_no;
 		  src_tower = document.getElementById("content" + disc.tower_no);
           src_tower.removeChild(src);
+		  adjust_disc_height(dst, src); 
 		  dst.insertBefore(src, dst.firstChild);
 
 		  update_tower_top(src_tower, src_tower_id);
@@ -160,6 +173,7 @@
 		    obj.appendChild(tdiv);
 
 			discs[idx] = new Disc(tdiv, 1)
+			disc_base_bottom = curr_bottom;
 			curr_width += w_delta;
 			curr_bottom -= disc_h;
 			curr_left -= w_delta/2;
