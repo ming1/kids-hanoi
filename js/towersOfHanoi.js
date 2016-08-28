@@ -4,6 +4,7 @@
 	  var disc_h = 18;
 
 	  discs = new Array(nr_discs);
+	  window.onload = setup_game();
 
       function Disc(elem, tower_no) {
           this.elem = elem;
