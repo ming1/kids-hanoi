@@ -102,9 +102,12 @@
           if (!e) var e = window.event;
           obj = (e.target) ? e.target: e.srcElement;
 
-		  document.form2.info.value += "drop to " + obj.id + "\n";
+		  //document.form2.info.value += "drop to " + obj.id + "\n";
 		  if (!valid_drag_drop(dd_obj, obj))
 				  return;
+
+		  document.form2.info.value += "drop to " + obj.id + "\n";
+		  obj = convert_to_tower(obj);
 
 		  handle_drop(dd_obj, obj);
       }
