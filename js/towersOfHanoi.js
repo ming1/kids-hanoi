@@ -1,8 +1,8 @@
       var nr_discs;
       var delay;
       var tower_h, tower_w;
-      var disc_h = 18;
-      var disc_w = 9;
+      var o_disc_h = 18;
+      var o_disc_w = 9;
       var disc_base_bottom;
       var dd_obj = false;
 
@@ -222,11 +222,20 @@
 		 }
 
 		 if (nr_discs <= 12) {
-		     disc_w += 4
-		     disc_h += 4
+		     disc_w = o_disc_w + 8;
+		     disc_h = o_disc_h + 8;
 		 } else if (nr_discs <= 16) {
-		     disc_w += 2
-		     disc_h += 4
+		     disc_w = o_disc_w + 6;
+		     disc_h = o_disc_h + 6;
+		 } else if (nr_discs <= 24) {
+		     disc_w = o_disc_w + 4;
+		     disc_h = o_disc_h + 4;
+		 } else if (nr_discs <= 32) {
+		     disc_w = o_disc_w + 2;
+		     disc_h = o_disc_h + 2;
+		 } else {
+		     disc_w = o_disc_w;
+		     disc_h = o_disc_h;
 		 }
 
 		 tower_h = 140 + nr_discs * disc_h;
