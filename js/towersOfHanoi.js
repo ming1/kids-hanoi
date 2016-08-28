@@ -23,6 +23,10 @@
           dd_obj = obj;
       }
 
+	  function disable_drag_drop(e) {
+			  return false;
+	  }
+
       function get_id(src, prefix_len) {
           return parseInt(src.id.substring(prefix_len, src.id.length));
       }
@@ -66,8 +70,12 @@
       function update_tower_top(tower, id) {
 		  var disc_id;
 
-		  if (!tower.firstChild)  top_disc[id] = -1;
+		  if (!tower.firstChild) {
+				  top_disc[id] = -1;
+				  return;
+		  }
 
+		  document.form2.info.value += "update: child id" + tower.firstChild.id + "\n";
 		  disc_id = get_id(tower.firstChild, 4);
 		  top_disc[id] = disc_id;
 	  }
@@ -103,10 +111,12 @@
 
       function init_drag(disc) {
           disc.onmousedown = drag_disc;
+          disc.onmousedup = disable_drag_drop;
       }
 
       function init_drop(tower) {
           tower.onmouseup = drop_to_tower;
+          tower.onmousedown = disable_drag_drop();
       }
 
       function del_disc(parent) {
@@ -155,11 +165,14 @@
          obj = document.getElementById("tower" + no);
          obj.style.width = w + "px";
          obj.style.height = h + "px";
-         init_drop(obj)
+		 obj.onmouseup = disable_drag_drop;
+		 obj.onmousedown = disable_drag_drop;
  
          obj = document.getElementById("content" + no);
          obj.style.width = w + "px";
          obj.style.height = h + "px";
+         obj.onmouseup = drop_to_tower;
+         obj.onmousedown = disable_drag_drop;
 	  }
 
       function set_bar(no, l, h) {
