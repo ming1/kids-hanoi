@@ -1,14 +1,22 @@
       var nr_discs;
-	  var delay;
-	  var tower_h, tower_w;
-	  var disc_h = 18;
+      var delay;
+      var tower_h, tower_w;
+      var disc_h = 18;
 
-	  discs = new Array(nr_discs);
+      discs = new Array(nr_discs);
+      top_disc = new Array(3)
+
 	  window.onload = setup_game();
 
       function Disc(elem, tower_no) {
           this.elem = elem;
           this.tower_no = tower_no;
+      }
+
+      function init_drag(disc) {
+      }
+
+      function init_drop(tower) {
       }
 
       function del_disc(parent) {
@@ -38,12 +46,18 @@
 		    tdiv.style.height = disc_h + "px";
 		    tdiv.style.width =  curr_width + "px";
 			tdiv.style.alignContent = "center";
+            tdiv.id = "disc" + idx;
+
 		    obj.appendChild(tdiv);
 
-			discs[nr_discs - idx - 1] = new Disc(tdiv, 1)
-
+			discs[idx] = new Disc(tdiv, 1)
 			curr_width += w_delta;
 		}
+
+        for (idx = 0; idx < 3; idx++) {
+            top_disc[idx] = -1;
+        }
+        top_disc[0] = 0;
 	  }
 
       function set_tower(no, w, h) {
@@ -82,12 +96,6 @@
 		 del_discs();
 		 add_discs();
 	  }
-
-      function init_drag() {
-      }
-
-      function init_drop() {
-      }
 
       function initialize() {
         init_drag();
