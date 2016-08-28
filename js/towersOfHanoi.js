@@ -19,11 +19,12 @@
           obj = (e.target) ? e.target: e.srcElement;
 
 		  //alert("drag from " + obj.id);
+		  document.form2.info.value += "drag from " + obj.id + "\n";
           dd_obj = obj;
       }
 
       function get_id(src, prefix_len) {
-          return parseInt(src.id.substring(prefix_len, src.length));
+          return parseInt(src.id.substring(prefix_len, src.id.length));
       }
 
 	  function convert_to_tower(dst) {
@@ -75,7 +76,7 @@
 	      var src_tower;
 		  var src_tower_id;
 		  var disc = discs[get_id(src, 4)];
-		  var dst_id = get_id(dst, 7);
+		  var dst_tower_id = get_id(dst, 7);
 
 		  src_tower_id = disc.tower_no;
 		  src_tower = document.getElementById("content" + disc.tower_no);
@@ -83,8 +84,9 @@
 		  dst.insertBefore(src, dst.firstChild);
 
 		  update_tower_top(src_tower, src_tower_id);
-		  update_tower_top(dst, dst_id);
+		  update_tower_top(dst, dst_tower_id);
 
+		  disc.tower_no = dst_tower_id;
           dd_obj = false;
 	  }
 
@@ -92,10 +94,10 @@
           if (!e) var e = window.event;
           obj = (e.target) ? e.target: e.srcElement;
 
+		  document.form2.info.value += "drop to " + obj.id + "\n";
 		  if (!valid_drag_drop(dd_obj, obj))
 				  return;
 
-		  alert("drop to" + obj.id);
 		  handle_drop(dd_obj, obj);
       }
 
