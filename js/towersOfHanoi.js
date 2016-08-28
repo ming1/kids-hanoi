@@ -5,7 +5,7 @@
       var dd_obj = false;
 
       discs = new Array(nr_discs);
-      top_disc = new Array(3)
+      top_disc = new Array(4);       //one extra
 
 	  window.onload = setup_game();
 
@@ -51,6 +51,8 @@
 		  disc = discs[disc_id];
 
 		  if (tower_id == disc.tower_no) return false; //in same tower
+		  if (top_disc[disc.tower_no] != disc_id)   //not the top one
+				  return false;
 
 		  if (top_disc[tower_id] == -1) return true; //tower is empty
 
@@ -60,6 +62,32 @@
 				  return true;
       }
 
+      function update_tower_top(tower, id) {
+		  var disc_id;
+
+		  if (!tower.firstChild)  top_disc[id] = -1;
+
+		  disc_id = get_id(tower.firstChild, 4);
+		  top_disc[id] = disc_id;
+	  }
+
+      function handle_drop(src, dst) {
+	      var src_tower;
+		  var src_tower_id;
+		  var disc = discs[get_id(src, 4)];
+		  var dst_id = get_id(dst, 7);
+
+		  src_tower_id = disc.tower_no;
+		  src_tower = document.getElementById("content" + disc.tower_no);
+          src_tower.removeChild(src);
+		  dst.insertBefore(src, dst.firstChild);
+
+		  update_tower_top(src_tower, src_tower_id);
+		  update_tower_top(dst, dst_id);
+
+          dd_obj = false;
+	  }
+
       function drop_to_tower(e) {
           if (!e) var e = window.event;
           obj = (e.target) ? e.target: e.srcElement;
@@ -68,8 +96,7 @@
 				  return;
 
 		  alert("drop to" + obj.id);
-
-          dd_obj = false;
+		  handle_drop(dd_obj, obj);
       }
 
       function init_drag(disc) {
@@ -116,10 +143,10 @@
 			curr_width += w_delta;
 		}
 
-        for (idx = 0; idx < 3; idx++) {
+        for (idx = 0; idx < 4; idx++) {
             top_disc[idx] = -1;
         }
-        top_disc[0] = 0;
+        top_disc[1] = 0;
 	  }
 
       function set_tower(no, w, h) {
