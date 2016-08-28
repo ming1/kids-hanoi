@@ -1,5 +1,5 @@
       var nr_discs;
-      var delay;
+      var move_delay;
       var tower_h, tower_w;
       var o_disc_h = 18;
       var o_disc_w = 9;
@@ -77,7 +77,7 @@
 				  return;
 		  }
 
-		  document.form2.info.value += "update: child id" + tower.firstChild.id + "\n";
+		  //document.form2.info.value += "update: child id" + tower.firstChild.id + "\n";
 		  disc_id = get_id(tower.firstChild, 4);
 		  top_disc[id] = disc_id;
 	  }
@@ -210,7 +210,7 @@
 
 	  function setup_game() {
 	     nr_discs = parseInt(document.form1.nr_discs.value);
-		 delay = parseInt(document.form1.move_delay.value);
+		 move_delay = parseInt(document.form1.move_delay.value);
 
 
 		 if (nr_discs < 0 || nr_discs > 64) {
@@ -255,6 +255,32 @@
 		 add_discs();
 	  }
 
+	  function delay(ms) {
+          ms += new Date().getTime();
+		  while (new Date() < ms){}
+      }
+
+	  function move_disc(from, to) {
+          src = document.getElementById("content" + from);	  
+          dst = document.getElementById("content" + to);
+
+		  src_disc = src.firstChild;
+		  src_disc.style.display="none"
+		  handle_drop(src_disc, dst);
+		  src_disc.style.display="block"
+		  document.form2.info.value += "move: from " + from + "to" + to + "\n";
+		  delay(move_delay);
+		  document.form2.info.value += "delay over\n";
+	  }
+
+      function hanoi(nr, from, buffer, to) {
+          if (!nr) return;
+
+		  hanoi(nr - 1, from, to, buffer);
+		  move_disc(from, to); 
+		  hanoi(nr - 1, buffer, from, to);
+	  }
+
 	  function auto_play() {
-	  
+          hanoi(nr_discs, 1, 2, 3); 
 	  }
