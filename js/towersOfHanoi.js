@@ -213,7 +213,6 @@
 	     nr_discs = parseInt(document.form1.nr_discs.value);
 		 move_delay = parseInt(document.form1.move_delay.value);
 
-
 		 if (nr_discs < 0 || nr_discs > 64) {
 			 message = "The number of disc(" + nr_discs + ") is too big!\n"
 		     alert(message);
@@ -262,8 +261,12 @@
       }
 
       function MoveElem(from, to) {
-	  		this.from = from;
-			this.to = to;
+	  	  this.from = from;
+		  this.to = to;
+
+		  if (que.getLength() > 65536) {
+				  setTimeout(handle_move, move_delay);
+		  }
 	  }
 
 	  function handle_move() {
@@ -275,11 +278,9 @@
           dst = document.getElementById("content" + to);
 
 		  src_disc = src.firstChild;
-		  src_disc.style.display="none"
 		  handle_drop(src_disc, dst);
-		  src_disc.style.display="block"
-		  document.form2.info.value += "move: from " + from + "to" + to + "\n";
-		  document.form2.info.value += "delay over\n";
+		  //document.form2.info.value += "move: from " + from + "to" + to + "\n";
+		  //document.form2.info.value += "delay over\n";
 
 		  if (que.getLength() > 0) {
 				  setTimeout(handle_move, move_delay);
