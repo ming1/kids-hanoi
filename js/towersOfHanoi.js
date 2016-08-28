@@ -2,6 +2,7 @@
       var delay;
       var tower_h, tower_w;
       var disc_h = 18;
+      var disc_w = 9;
       var disc_base_bottom;
       var dd_obj = false;
 
@@ -148,7 +149,7 @@
 	  }
 
       function add_discs() {
-        var w_delta = 9;
+        var w_delta = disc_w;
         var obj;
 		var tdiv;
 		var curr_width = tower_w - nr_discs * w_delta;
@@ -210,6 +211,14 @@
 	  function setup_game() {
 	     nr_discs = parseInt(document.form1.nr_discs.value);
 		 delay = parseInt(document.form1.move_delay.value);
+
+		 if (nr_discs <= 12) {
+		     disc_w += 4
+		     disc_h += 4
+		 } else if (nr_discs <= 16) {
+		     disc_w += 2
+		     disc_h += 4
+		 }
 
 		 tower_h = 140 + nr_discs * disc_h;
 		 tower_w = 189 + nr_discs * 7
