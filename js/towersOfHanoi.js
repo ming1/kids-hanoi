@@ -6,7 +6,7 @@
       var disc_base_bottom;
       var dd_obj = false;
 
-      discs = new Array(nr_discs);
+      discs = new Array(64);
       top_disc = new Array(4);       //one extra
 
 	  window.onload = setup_game();
@@ -212,6 +212,15 @@
 	     nr_discs = parseInt(document.form1.nr_discs.value);
 		 delay = parseInt(document.form1.move_delay.value);
 
+
+		 if (nr_discs < 0 || nr_discs > 64) {
+			 message = "The number of disc(" + nr_discs + ") is too big!\n"
+		     alert(message);
+
+			 nr_discs = 3;
+			 document.form1.nr_discs.value = nr_discs;
+		 }
+
 		 if (nr_discs <= 12) {
 		     disc_w += 4
 		     disc_h += 4
@@ -236,12 +245,6 @@
 		 del_discs();
 		 add_discs();
 	  }
-
-      function initialize() {
-        init_drag();
-        init_drop();
-		setup_game();
-      }
 
 	  function auto_play() {
 	  
