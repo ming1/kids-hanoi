@@ -275,11 +275,7 @@
           dst = document.getElementById("content" + to);
 
 		  src_disc = src.firstChild;
-		  src_disc.style.display="none"
 		  handle_drop(src_disc, dst);
-		  src_disc.style.display="block"
-		  document.form2.info.value += "move: from " + from + "to" + to + "\n";
-		  document.form2.info.value += "delay over\n";
 
 		  if (que.getLength() > 0) {
 				  setTimeout(handle_move, move_delay);
