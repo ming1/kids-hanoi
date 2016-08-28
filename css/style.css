@@ -24,9 +24,9 @@ h2 {
 .draggable {
   height: 18px;
   border-radius: 10px;
-  position: relative;
+  position: absolute;
   margin: 0 auto;
-  bottom : -140px;
+  bottom : 0;
 }
 
 .disk1 {

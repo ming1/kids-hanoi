@@ -139,6 +139,8 @@
         var obj;
 		var tdiv;
 		var curr_width = tower_w - nr_discs * w_delta;
+		var curr_bottom = (nr_discs - 1) * disc_h;
+		var curr_left = nr_discs * w_delta / 2;
 
         for (idx = 0; idx < nr_discs; idx++) {
 	        obj = document.getElementById("content1");
@@ -148,7 +150,10 @@
 
 		    tdiv.style.height = disc_h + "px";
 		    tdiv.style.width =  curr_width + "px";
-			tdiv.style.alignContent = "center";
+		    tdiv.style.bottom =  curr_bottom + "px";
+			//tdiv.style.alignContent = "center";
+			//tdiv.style.alignSelf = "center";
+		    tdiv.style.left =  curr_left + "px";
             tdiv.id = "disc" + idx;
             init_drag(tdiv);
 
@@ -156,6 +161,8 @@
 
 			discs[idx] = new Disc(tdiv, 1)
 			curr_width += w_delta;
+			curr_bottom -= disc_h;
+			curr_left -= w_delta/2;
 		}
 
         for (idx = 0; idx < 4; idx++) {
