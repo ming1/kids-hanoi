@@ -5,6 +5,7 @@
       var o_disc_w = 9;
       var disc_base_bottom;
       var dd_obj = false;
+	  var que = new Queue();
 
       discs = new Array(64);
       top_disc = new Array(4);       //one extra
@@ -260,7 +261,16 @@
 		  while (new Date() < ms){}
       }
 
-	  function move_disc(from, to) {
+      function MoveElem(from, to) {
+	  		this.from = from;
+			this.to = to;
+	  }
+
+	  function handle_move() {
+		  move_elem = que.dequeue();
+
+		  from = move_elem.from;
+		  to = move_elem.to;
           src = document.getElementById("content" + from);	  
           dst = document.getElementById("content" + to);
 
@@ -269,8 +279,15 @@
 		  handle_drop(src_disc, dst);
 		  src_disc.style.display="block"
 		  document.form2.info.value += "move: from " + from + "to" + to + "\n";
-		  delay(move_delay);
 		  document.form2.info.value += "delay over\n";
+
+		  if (que.getLength() > 0) {
+				  setTimeout(handle_move, move_delay);
+		  }
+	  }
+
+	  function move_disc(from, to) {
+	     que.enqueue(new MoveElem(from, to));	 
 	  }
 
       function hanoi(nr, from, buffer, to) {
@@ -282,5 +299,8 @@
 	  }
 
 	  function auto_play() {
-          hanoi(nr_discs, 1, 2, 3); 
+          hanoi(nr_discs, 1, 2, 3);
+		  if (que.getLength() > 0) {
+				  setTimeout(handle_move, move_delay);
+		  }
 	  }
