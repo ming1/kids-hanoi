@@ -285,7 +285,10 @@
       function auto_play_update() {
           elapsed = new Date().getTime();
 		  elapsed -= start_time;
-		  status_obj.nodeValue = "move " + count + " in " + elapsed + "ms";
+
+		  time = elapsed / count;
+		  status_obj.nodeValue = "Moving " + count + " discs takes " + elapsed + "ms.\n";
+		  status_obj.nodeValue += "\n\nMoving one takes " + time + "ms\n";
 	  }
 
 	  function handle_move() {
