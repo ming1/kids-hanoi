@@ -8,7 +8,7 @@
 	  var que = new Queue();
 	  var count = 0;
 	  var start_time;
-	  var status_obj;
+	  var status_obj, status1_obj;
 
       discs = new Array(64);
       top_disc = new Array(4);       //one extra
@@ -142,7 +142,7 @@
 
       function del_children(parent) {
           obj = document.getElementById(parent);
-          while (obj.firstChild) {
+          while (obj && obj.firstChild) {
              obj.removeChild(obj.firstChild);
           }
 	  }
@@ -260,6 +260,11 @@
 
 		 del_discs();
 		 add_discs();
+
+         obj = document.getElementById("info1");
+		 obj.style.display = "none"
+         obj = document.getElementById("info2");
+		 obj.style.display = "none"
 	  }
 
 	  function delay(ms) {
@@ -277,10 +282,16 @@
 			count = 0;
 
 			del_children("info1");
+			del_children("info2");
          	obj = document.getElementById("info1");
-
+			obj.style.display = "block"
 			status_obj = document.createTextNode("");
 			obj.appendChild(status_obj);
+
+         	obj = document.getElementById("info2");
+			obj.style.display = "block"
+			status1_obj = document.createTextNode("");
+			obj.appendChild(status1_obj);
 	  }
       function auto_play_update() {
           elapsed = new Date().getTime();
@@ -288,7 +299,7 @@
 
 		  time = elapsed / count;
 		  status_obj.nodeValue = "Moving " + count + " discs takes " + elapsed + "ms.\n";
-		  status_obj.nodeValue += "\n\nMoving one takes " + time + "ms\n";
+		  status1_obj.nodeValue = "Moving one takes ~" + time.toFixed(4) + "ms.\n";
 	  }
 
 	  function handle_move() {
