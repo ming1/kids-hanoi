@@ -135,11 +135,6 @@
           disc.onmousedup = disable_drag_drop;
       }
 
-      function init_drop(tower) {
-          tower.onmouseup = drop_to_tower;
-          tower.onmousedown = disable_drag_drop();
-      }
-
       function del_children(parent) {
           obj = document.getElementById(parent);
           while (obj && obj.firstChild) {
