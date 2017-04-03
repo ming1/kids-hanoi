@@ -9,6 +9,7 @@
 	  var count = 0;
 	  var start_time;
 	  var status_obj, status1_obj;
+	  var has_touch;
 
       discs = new Array(64);
       top_disc = new Array(4);       //one extra
@@ -18,6 +19,15 @@
       function Disc(elem, tower_no) {
           this.elem = elem;
           this.tower_no = tower_no;
+      }
+
+      function disc_touchstart(e) {
+		  var obj = e.target;
+		  document.form2.info.value += "my touchstart " + obj.id + "\n";
+	  }
+      function disc_touchend(e) {
+		  var obj = e.target;
+		  document.form2.info.value += "my touchend " + obj.id + "\n";
       }
 
       //.onmousedown event handler for disc
@@ -138,8 +148,16 @@
       }
 
       function init_disc_drag(disc) {
-          disc.onmousedown = drag_disc;
-          disc.onmousedup = disable_drag_drop;
+          if (has_touch) {
+              disc.onclick  = '';
+              disc.onmousedown = '';
+              disc.onmousedup = '';
+              disc.ontouchstart = disc_touchstart;
+              disc.ontouchend = disc_touchend;
+          } else {
+              disc.onmousedown = drag_disc;
+              disc.onmousedup = disable_drag_drop;
+          }
       }
 
       function del_children(parent) {
@@ -204,14 +222,31 @@
          obj = document.getElementById("tower" + no);
          obj.style.width = w + "px";
          obj.style.height = h + "px";
-		 obj.onmouseup = disable_drag_drop;
-		 obj.onmousedown = disable_drag_drop;
+          if (has_touch) {
+              obj.onclick  = '';
+              obj.onmousedown = '';
+              obj.onmousedup = '';
+              obj.ontouchstart = '';
+              obj.ontouchend = '';
+          } else {
+              obj.onmouseup = disable_drag_drop;
+              obj.onmousedown = disable_drag_drop;
+          }
  
          obj = document.getElementById("content" + no);
          obj.style.width = w + "px";
          obj.style.height = h + "px";
-         obj.onmouseup = drop_to_tower;
-         obj.onmousedown = disable_drag_drop;
+          if (has_touch) {
+              obj.onclick  = '';
+              obj.onmousedown = '';
+              obj.onmousedup = '';
+              obj.ontouchstart = '';
+              obj.ontouchend = '';
+              obj.ontouchend = '';
+          } else {
+              obj.onmouseup = drop_to_tower;
+              obj.onmousedown = disable_drag_drop;
+          }
 	  }
 
       function set_bar(no, l, h) {
@@ -224,6 +259,8 @@
 	     nr_discs = parseInt(document.form1.nr_discs.value);
 		 move_delay = parseInt(document.form1.move_delay.value);
 
+		 has_touch = 'ontouchstart' in document.createElement( 'div' );
+		 document.form2.info.value += "support touch " + has_touch + "\n";
 
 		 if (nr_discs < 0 || nr_discs > 64) {
 			 message = "The number of disc(" + nr_discs + ") is too big!\n"
