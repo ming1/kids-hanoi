@@ -399,7 +399,7 @@
 
 	  function auto_play() {
 		  auto_play_start();
-          hanoi(nr_discs, 1, 2, 3);
+          hanoi(nr_discs, 1, 3, 2);
 		  if (que.getLength() > 0) {
 				  setTimeout(handle_move, move_delay);
 		  }
