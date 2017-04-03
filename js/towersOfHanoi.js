@@ -137,7 +137,7 @@
 		  handle_drop(dd_obj, obj);
       }
 
-      function init_drag(disc) {
+      function init_disc_drag(disc) {
           disc.onmousedown = drag_disc;
           disc.onmousedup = disable_drag_drop;
       }
@@ -181,7 +181,7 @@
             tdiv.id = "disc" + idx;
 			tdiv.style.textAlign = "center"
 		    tdiv.appendChild(document.createTextNode(idx + 1));
-            init_drag(tdiv);
+            init_disc_drag(tdiv);
 
 		    obj.appendChild(tdiv);
 
