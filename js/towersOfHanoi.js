@@ -27,7 +27,19 @@
 	  }
       function disc_touchend(e) {
 		  var obj = e.target;
-		  document.form2.info.value += "my touchend " + obj.id + "\n";
+		  var touches = e.changedTouches;
+		  var tgt;
+
+		  document.form2.info.value += "my touchend " + touches.length;
+		  for (var i = 0; i < touches.length; i++) {
+			 tgt = document.elementFromPoint(touches[i].pageX, touches[i].pageY);
+             document.form2.info.value += " " + tgt.id;
+
+             //it has to touch to content area
+             if (tgt.id.substring(0, 7) == "content" || tgt.id.substring(0, 4) == "disc")
+                 move_disc_to_tower(obj, tgt);
+		  }
+		  document.form2.info.value += "\n";
       }
 
       //.onmousedown event handler for disc
@@ -139,7 +151,6 @@
 		  if (!valid_drag_drop(disc, content))
 				  return;
 
-		  document.form2.info.value += "drop to " + content.id + "\n";
 		  tower = convert_to_tower(content);
 
 		  handle_drop(disc, tower);
@@ -149,6 +160,7 @@
           if (!e) var e = window.event;
           obj = (e.target) ? e.target: e.srcElement;
 
+		  document.form2.info.value += "drop to " + obj.id + "\n";
           move_disc_to_tower(dd_obj, obj);
       }
 
