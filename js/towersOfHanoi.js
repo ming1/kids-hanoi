@@ -24,6 +24,8 @@
       function disc_touchstart(e) {
 		  var obj = e.target;
 		  document.form2.info.value += "my touchstart " + obj.id + "\n";
+
+		  //e.preventDefault();
 	  }
       function disc_touchend(e) {
 		  var obj = e.target;
@@ -275,6 +277,9 @@
 	  function setup_game() {
 	     nr_discs = parseInt(document.form1.nr_discs.value);
 		 move_delay = parseInt(document.form1.move_delay.value);
+
+         window.clearTimeout();
+         que = new Queue();
 
 		 has_touch = 'ontouchstart' in document.createElement( 'div' );
 		 document.form2.info.value += "support touch " + has_touch + "\n";
