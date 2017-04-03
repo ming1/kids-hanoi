@@ -133,18 +133,23 @@
           dd_obj = false;
 	  }
 
+      function move_disc_to_tower(disc, content) {
+          var tower;
+
+		  if (!valid_drag_drop(disc, content))
+				  return;
+
+		  document.form2.info.value += "drop to " + content.id + "\n";
+		  tower = convert_to_tower(content);
+
+		  handle_drop(disc, tower);
+      }
+
       function drop_to_tower(e) {
           if (!e) var e = window.event;
           obj = (e.target) ? e.target: e.srcElement;
 
-		  //document.form2.info.value += "drop to " + obj.id + "\n";
-		  if (!valid_drag_drop(dd_obj, obj))
-				  return;
-
-		  document.form2.info.value += "drop to " + obj.id + "\n";
-		  obj = convert_to_tower(obj);
-
-		  handle_drop(dd_obj, obj);
+          move_disc_to_tower(dd_obj, obj);
       }
 
       function init_disc_drag(disc) {
