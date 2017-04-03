@@ -4,7 +4,7 @@
       var o_disc_h = 18;
       var o_disc_w = 9;
       var disc_base_bottom;
-      var dd_obj = false;
+      var dd_obj = false;			//drag & drop object
 	  var que = new Queue();
 	  var count = 0;
 	  var start_time;
@@ -20,15 +20,18 @@
           this.tower_no = tower_no;
       }
 
+      //.onmousedown event handler for disc
       function drag_disc(e) {
           if (!e) var e = window.event;
           obj = (e.target) ? e.target: e.srcElement;
 
 		  //alert("drag from " + obj.id);
+		  //for debug purpose
 		  document.form2.info.value += "drag from " + obj.id + "\n";
           dd_obj = obj;
       }
 
+      //.onmouseup event handler for disc
 	  function disable_drag_drop(e) {
 			  return false;
 	  }
@@ -48,10 +51,13 @@
 		  }
 	  }
 
+      //we must respect hanoi's rule
       function valid_drag_drop(src, dst) {
 		  var disc, disc_id, tower_id;;
 
 		  if (!src || !dst)  return false;
+
+          //it has to be a disc we draged
           if (src.id.substring(0, 4) != "disc") return false; //not drag a disc
 
           if (src == dst) return false;   //drop to myself
@@ -97,6 +103,7 @@
 		  disc.style.bottom = n_bot + 'px';
 	  }
 
+      //src is disc, and dst is tower, and it has to be a valid drop
       function handle_drop(src, dst) {
 	      var src_tower;
 		  var src_tower_id;
@@ -112,7 +119,7 @@
 		  update_tower_top(src_tower, src_tower_id);
 		  update_tower_top(dst, dst_tower_id);
 
-		  disc.tower_no = dst_tower_id;
+		  disc.tower_no = dst_tower_id; //update to new tower
           dd_obj = false;
 	  }
 
@@ -159,7 +166,8 @@
 		var curr_left = nr_discs * w_delta / 2;
 
         for (idx = 0; idx < nr_discs; idx++) {
-	        obj = document.getElementById("content1");
+            //tower
+            obj = document.getElementById("content1");
             tdiv = document.createElement('div');
             tdiv.classList.add("draggable");
             tdiv.classList.add("disk1");
@@ -177,6 +185,7 @@
 
 		    obj.appendChild(tdiv);
 
+			//we are at the 1st tower af the beginning
 			discs[idx] = new Disc(tdiv, 1)
 			disc_base_bottom = curr_bottom;
 			curr_width += w_delta;
@@ -190,6 +199,7 @@
         top_disc[1] = 0;
 	  }
 
+      //set tower's .onmouseup & .onmousedown evt handler
       function set_tower(no, w, h) {
          obj = document.getElementById("tower" + no);
          obj.style.width = w + "px";
